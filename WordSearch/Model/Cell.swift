@@ -32,9 +32,7 @@ struct Cell: Hashable, View {
     
     
     public mutating func _toggleSelect() {
-        print("before: " + String(self.isSelected))
         self.isSelected.toggle()
-        print("after: " + String(self.isSelected))
     }
     
     // Equatable

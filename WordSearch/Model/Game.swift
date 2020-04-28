@@ -33,6 +33,7 @@ class Game: ObservableObject {
     var hintCount: Int = 5
     
     // props
+    @Published var isEnd = false
     @Published var gameBoard: [[Cell]] = []
     @Published var score: Int = 0
     
@@ -64,6 +65,7 @@ class Game: ObservableObject {
         self.keywordsFound.removeAll()
         self.score = 0
         self.hintCount = 5
+        self.isEnd = false
         self.gameBoard.removeAll(keepingCapacity: false)
         self.gameBoard = _initializeBoard()
     }

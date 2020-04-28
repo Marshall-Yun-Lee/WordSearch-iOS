@@ -11,25 +11,56 @@ import SwiftUI
 typealias reset = () -> Void
 
 struct GameView: View {
+    var game: Game = Game.sharedInstance
+    
     var backButton: reset?
     
     var body: some View {
-        VStack(spacing: 20) {
-            _header(backButton: backButton!)
+        ZStack {
+            VStack(spacing: 20) {
+                _header(backButton: self.backButton!)
+                
+                Spacer()
+                
+                _board()
+                
+                Spacer()
+                
+                _uiCluster()
+            }
             
-            Spacer()
-            
-            _board()
-            
-            Spacer()
-            
-            _uiCluster()
+            if self.game.isEnd {
+                GeometryReader { _ in
+                    YouBeatTheGame(backButton: self.backButton!)
+                }.background(Color.black.opacity(0.7))
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
     }
     
     //================= VIEWS ================
+    struct YouBeatTheGame: View {
+        var backButton: reset
+        
+        var body: some View {
+            VStack {
+                Text("Winner Winner Chicken Dinner!")
+                    .font(.system(size: 30))
+                    .foregroundColor(Color.white)
+                Button(action: {
+                    self.backButton()
+                }) {
+                    Text("Yummy")
+                        .font(.system(size:30))
+                        .foregroundColor(Color.white)
+                }
+            }.background(Color.black)
+        }
+    }
+    
     /*
      This renders header of game view
+     I should have used navigation view
      */
     struct _header: View {
         // setting view toggler
@@ -103,7 +134,7 @@ struct GameView: View {
                         .onEnded { _ in
                             self.__validateSelection()
                         }
-                ).padding(.horizontal, 10)
+                )
             }
         }
         
@@ -112,6 +143,7 @@ struct GameView: View {
         /*
          This handles cell selection
          Stores correcponding Cell and its string value to self.keywordBuilder and self.selectedCells.
+         Since this depends on coordinates, everything should be variable based on screen size.
          */
         private func __handleSelect(touch: DragGesture.Value) {
             var xLoc: Int = Int((touch.location.x - 2) / Cell.scale)               // (touch locatioin - left padding) / cell size
@@ -150,10 +182,11 @@ struct GameView: View {
                         self.game.gameBoard[loc.yLoc][loc.xLoc]._toggleSelect()
                     }
                 }
-                print("incorrect!")
             } else {
                 self.game.score += 1
-                print("Score: " + String(self.game.score))
+                if Game.keywordList.count - game.score == 0 {
+                    self.game.isEnd = true
+                }
             }
             // answer
             self.lastLoc = nil
