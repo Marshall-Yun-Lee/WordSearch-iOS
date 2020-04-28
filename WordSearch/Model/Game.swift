@@ -16,6 +16,7 @@ class Game: ObservableObject {
         self.score = 0
     }
     
+    // static
     static let boardSize: Int = 10 // 10x10 board
     static let keywordList: [String] = [
         "SWIFT",
@@ -25,9 +26,13 @@ class Game: ObservableObject {
         "JAVA",
         "MOBILE"
     ]
-    static var reservedLocations: [Location] = []
-    static var keywordFound: [String] = []
     
+    // use getters
+    var reservedLocations: [Location] = []
+    var keywordsFound: [String] = []
+    var hintCount: Int = 5
+    
+    // props
     @Published var gameBoard: [[Cell]] = []
     @Published var score: Int = 0
     
@@ -54,14 +59,41 @@ class Game: ObservableObject {
         return out
     }
     
-    public func _resetGame() {
-        Game.reservedLocations.removeAll()
-        Game.keywordFound.removeAll()
+    public func _resetGame() -> Void {
+        self.reservedLocations.removeAll()
+        self.keywordsFound.removeAll()
         self.score = 0
+        self.hintCount = 5
         self.gameBoard.removeAll(keepingCapacity: false)
         self.gameBoard = _initializeBoard()
-        
     }
+    
+    public func _showMeTheHint() -> Void {
+        while self.hintCount > 0 {
+            let randomPos: Location = self.reservedLocations.randomElement()!
+            
+            if !self.gameBoard[randomPos.yLoc][randomPos.xLoc].isSelected {
+                self.gameBoard[randomPos.yLoc][randomPos.xLoc].isSelected = true
+                break;
+            }
+            // continue
+        }
+        self.hintCount -= self.hintCount > 0 ? 1 : 0
+    }
+    
+    //======================= getters =======================
+    public func getReservedLocations() -> [Location] {
+        return self.reservedLocations
+    }
+    
+    public func getKeywordsFound() -> [String] {
+        return self.keywordsFound
+    }
+    
+    public func getHintCount() -> Int {
+        return self.hintCount
+    }
+    //=======================================================
 
 
     //================= initializer helpers =================
@@ -112,7 +144,7 @@ class Game: ObservableObject {
                                                                             isSelected: false) // true if you want to show all answers upon builds
                             
                             // add this cellLocation to the reserved location list
-                            Game.reservedLocations.append(cellLocation)
+                            self.reservedLocations.append(cellLocation)
                             
                             // update cellLocation for the next iteration based on the direction
                             cellLocation = __getNextDirection(position: cellLocation, direction: dir)
@@ -166,7 +198,7 @@ class Game: ObservableObject {
         for char in 0..<keyword.count {
             if currP.yLoc < 0 || currP.yLoc > Game.boardSize - 1 ||
                 currP.xLoc < 0 || currP.xLoc > Game.boardSize - 1 ||
-                (Game.reservedLocations.contains(currP) && (board[currP.yLoc][currP.yLoc].value!.uppercased() != String(char).uppercased())) {
+                (self.reservedLocations.contains(currP) && (board[currP.yLoc][currP.yLoc].value!.uppercased() != String(char).uppercased())) {
                 return false
             }
             currP = __getNextDirection(position: currP, direction: direction)

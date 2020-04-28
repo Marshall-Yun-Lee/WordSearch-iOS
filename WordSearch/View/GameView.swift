@@ -95,16 +95,16 @@ struct GameView: View {
                             }
                         }
                     }
-                }
-            }.gesture(
-                DragGesture(minimumDistance: 0, coordinateSpace: .local) // using local coordinates -- no need to get viewframe's origin location
-                    .onChanged { value in
-                        self.__handleSelect(touch: value)
-                    }
-                    .onEnded { _ in
-                        self.__validateSelection()
-                    }
-            ).padding(.horizontal, 10)
+                }.gesture(
+                    DragGesture(minimumDistance: 0, coordinateSpace: .local) // using local coordinates -- no need to get viewframe's origin location
+                        .onChanged { value in
+                            self.__handleSelect(touch: value)
+                        }
+                        .onEnded { _ in
+                            self.__validateSelection()
+                        }
+                ).padding(.horizontal, 10)
+            }
         }
         
         
@@ -146,7 +146,9 @@ struct GameView: View {
             // not answer
             if !Game.keywordList.contains(self.keywordBuilder) {
                 for loc in self.selectedCells {
-                    self.game.gameBoard[loc.yLoc][loc.xLoc]._toggleSelect()
+                    if self.game.gameBoard[loc.yLoc][loc.xLoc].isSelected {
+                        self.game.gameBoard[loc.yLoc][loc.xLoc]._toggleSelect()
+                    }
                 }
                 print("incorrect!")
             } else {
@@ -198,13 +200,11 @@ struct GameView: View {
                     }
                     Spacer()
                     Button(action: {
-                        // TODO
-                        let hint: Location? = Game.reservedLocations.randomElement() ?? nil
-                        if (hint == nil) { // skip
-                            self.game.gameBoard[hint!.yLoc][hint!.xLoc].isSelected = true
+                        if self.game.getHintCount() > 0 {
+                            self.game._showMeTheHint()
                         }
                     }) {
-                        Text("HINT")
+                        Text("HINT(" + String(self.game.getHintCount()) + ")")
                             .font(.system(size: 30))
                             .foregroundColor(.white)
                     }
