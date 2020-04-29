@@ -134,7 +134,7 @@ struct GameView: View {
                 .font(.system(size: 40))
                 .onReceive(timer) { _ in
                     // game must be running
-                    if self.timeRemaining > 0 && self.game.isRunning {
+                    if self.timeRemaining > 0 && !self.game.isEnd {
                         self.timeRemaining -= 1
                     } else {
                         self.game.isDead = true
