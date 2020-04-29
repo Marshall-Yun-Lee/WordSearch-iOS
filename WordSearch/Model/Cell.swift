@@ -94,11 +94,15 @@ struct Cell: Hashable, View {
  calculate each cell square' size.
  - horizontal padding: 20
  - board size: 10
+ This compares width and height based cell size, and return whatever smaller.
  */
 func _getFrameSize() -> CGFloat {
     let sidePadding: CGFloat = 10 * 2
     let numCell: CGFloat = 10
-    return (UIScreen.main.bounds.width - sidePadding) / numCell
+    let widthBase = (UIScreen.main.bounds.width - sidePadding) / numCell
+    let heightBase = (UIScreen.main.bounds.height - sidePadding) / numCell
+    
+    return widthBase > heightBase ? heightBase : widthBase
 }
 
 // meh

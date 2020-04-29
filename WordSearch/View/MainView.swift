@@ -8,7 +8,9 @@
 
 import SwiftUI
 
+// Main view in Landscape mode is fine as it is.
 struct MainView: View {
+    
     // pre-declaring function type for each button
     typealias start = () -> Void
 

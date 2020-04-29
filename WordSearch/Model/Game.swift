@@ -33,8 +33,9 @@ class Game: ObservableObject {
     private var hintCount: Int = 5
     
     // props
-    @Published var isRunning = false
-    @Published var isEnd = false
+    @Published var isRunning: Bool = false
+    @Published var isEnd: Bool = false
+    @Published var isDead: Bool = false
     @Published var gameBoard: [[Cell]] = []
     @Published var score: Int = 0
     

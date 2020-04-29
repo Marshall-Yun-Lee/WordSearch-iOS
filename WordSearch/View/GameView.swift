@@ -12,54 +12,67 @@ typealias reset = () -> Void
 
 struct GameView: View {
     var game: Game = Game.sharedInstance
-    
     var backButton: reset?
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 20) {
-                _header(backButton: self.backButton!)
-                
-                Spacer()
-                
-                _board()
-                
-                Spacer()
-                
-                _uiCluster()
+        return GeometryReader { geometry in
+            // height is greater than the width -> portrait mode
+            if geometry.size.width < geometry.size.height {
+                ZStack {
+                    VStack(spacing: 20) {
+                        _header(backButton: self.backButton!)
+                        _timer()
+                        _board()
+                        Spacer()
+                        _uiCluster()
+                    }
+                    
+                    if self.game.isEnd {
+                        GeometryReader { _ in
+                            YouBeatTheGame(backButton: self.backButton!)
+                        }.background(Color.black.opacity(0.7))
+                            .edgesIgnoringSafeArea(.all)
+                    } else if self.game.isDead {
+                        GeometryReader { _ in
+                            YouDied(backButton: self.backButton!)
+                        }.background(Color.black.opacity(0.7))
+                            .edgesIgnoringSafeArea(.all)
+                    }
+                }
             }
-            
-            if self.game.isEnd {
-                GeometryReader { _ in
-                    YouBeatTheGame(backButton: self.backButton!)
-                }.background(Color.black.opacity(0.7))
-                    .edgesIgnoringSafeArea(.all)
+            // width is greater than the height -> horizontal mode
+            else {
+                ZStack {
+                    HStack(spacing: 20) {
+                        VStack {
+                            _header(backButton: self.backButton!)
+                            _timer()
+                            Spacer()
+                            _uiCluster()
+                        }
+                        
+                        _board()
+                    }
+                    
+                    // this is dups. I probably could extract ZStack out of geo, and remove this code here
+                    if self.game.isEnd {
+                        GeometryReader { _ in
+                            YouBeatTheGame(backButton: self.backButton!)
+                        }.background(Color.black.opacity(0.7))
+                            .edgesIgnoringSafeArea(.all)
+                    } else if self.game.isDead {
+                        GeometryReader { _ in
+                            YouDied(backButton: self.backButton!)
+                        }.background(Color.black.opacity(0.7))
+                            .edgesIgnoringSafeArea(.all)
+                    }
+                }
             }
         }
+        
     }
     
     //================= VIEWS ================
-    struct YouBeatTheGame: View {
-        var backButton: reset
-        
-        var body: some View {
-            VStack(spacing: 20) {
-                Text("Winner Winner Chicken Dinner!")
-                    .font(.system(size: 20))
-                    .foregroundColor(Color.white)
-                Button(action: {
-                    self.backButton()
-                }) {
-                    Text("YUMMY")
-                        .font(.system(size:30))
-                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                }.padding(10)
-            }.padding(30)
-            .background(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
-            .shadow(radius: 5)
-        }
-    }
-    
     /*
      This renders header of game view
      I should have used navigation view
@@ -107,6 +120,29 @@ struct GameView: View {
         }
     }
     
+    /**
+     User has a minute to finish the word search game.
+     If user failed to finish, this toggles Game.isDead to true
+     */
+    struct _timer: View {
+        @ObservedObject var game: Game = Game.sharedInstance
+        @State var timeRemaining = 60
+        let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+        var body: some View {
+            Text("\(timeRemaining)")
+                .font(.system(size: 40))
+                .onReceive(timer) { _ in
+                    // game must be running
+                    if self.timeRemaining > 0 && self.game.isRunning {
+                        self.timeRemaining -= 1
+                    } else {
+                        self.game.isDead = true
+                    }
+                }
+        }
+    }
+    
     
     /*
      This renders game board. default board size is 10
@@ -140,10 +176,9 @@ struct GameView: View {
                             print("end")
                             self.__validateSelection()
                         }
-                )
+                ).padding(.top, 10)
             }
         }
-        
         
         //======================== board helpers ========================
         /*
@@ -171,7 +206,7 @@ struct GameView: View {
                 self.keywordBuilder.append(self.game.gameBoard[yLoc][xLoc].value ?? "?")
                 
                 // mutating cells based on dragging location stops after 1 seconds of touch action.. can't find any good solution to it :(
-                self.game.gameBoard[yLoc][xLoc]._select()
+//                self.game.gameBoard[yLoc][xLoc]._select()
 //                self.game.gameBoard[yLoc][xLoc]._magnify()
             }
         }
@@ -259,4 +294,63 @@ struct GameView: View {
         }
     }
     //========================================
+    
+    //=========================== popups ===========================
+    /**
+     Congraturation popup. You won!
+     One clickable option should be available: yummy -> main view
+     the popup should not be dismissed upon clicking anywhere outside
+     */
+    struct YouBeatTheGame: View {
+        var backButton: reset
+        
+        var body: some View {
+            VStack(spacing: 20) {
+                Text("Winner Winner Chicken Dinner!")
+                    .font(.system(size: 20))
+                    .foregroundColor(Color.white)
+                Button(action: {
+                    self.backButton()
+                }) {
+                    Text("YUMMY")
+                        .font(.system(size:30))
+                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                }.padding(10)
+            }.padding(30)
+            .background(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
+            .shadow(radius: 5)
+        }
+    }
+    
+    /**
+     User failed
+     One clickable option should be available: retry -> main view
+     the popup should not be dismissed upon clicking anywhere outside
+     */
+    struct YouDied: View {
+        @ObservedObject var game: Game = Game.sharedInstance
+        var backButton: reset
+        
+        var body: some View {
+            VStack(spacing: 20) {
+                Text("You Died!")
+                    .font(.system(size: 20))
+                    .foregroundColor(Color.white)
+                Button(action: {
+                    // restart the game
+                    self.game.isRunning = true
+                    self.game._resetGame()
+                }) {
+                    Text("RETRY")
+                        .font(.system(size:30))
+                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                }.padding(10)
+            }.padding(30)
+            .background(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
+            .shadow(radius: 5)
+        }
+    }
+    
+    //===============================================================
+
 }
