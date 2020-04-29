@@ -16,9 +16,9 @@ struct GameView: View {
     
     var body: some View {
         return GeometryReader { geometry in
-            // height is greater than the width -> portrait mode
-            if geometry.size.width < geometry.size.height {
-                ZStack {
+            ZStack {
+                // height is greater than the width -> portrait mode
+                if geometry.size.width < geometry.size.height {
                     VStack(spacing: 20) {
                         _header(backButton: self.backButton!)
                         _timer()
@@ -26,23 +26,9 @@ struct GameView: View {
                         Spacer()
                         _uiCluster()
                     }
-                    
-                    if self.game.isEnd {
-                        GeometryReader { _ in
-                            YouBeatTheGame(backButton: self.backButton!)
-                        }.background(Color.black.opacity(0.7))
-                            .edgesIgnoringSafeArea(.all)
-                    } else if self.game.isDead {
-                        GeometryReader { _ in
-                            YouDied(backButton: self.backButton!)
-                        }.background(Color.black.opacity(0.7))
-                            .edgesIgnoringSafeArea(.all)
-                    }
                 }
-            }
-            // width is greater than the height -> horizontal mode
-            else {
-                ZStack {
+                // width is greater than the height -> horizontal mode
+                else {
                     HStack(spacing: 20) {
                         VStack {
                             _header(backButton: self.backButton!)
@@ -53,23 +39,21 @@ struct GameView: View {
                         
                         _board()
                     }
-                    
-                    // this is dups. I probably could extract ZStack out of geo, and remove this code here
-                    if self.game.isEnd {
-                        GeometryReader { _ in
-                            YouBeatTheGame(backButton: self.backButton!)
-                        }.background(Color.black.opacity(0.7))
-                            .edgesIgnoringSafeArea(.all)
-                    } else if self.game.isDead {
-                        GeometryReader { _ in
-                            YouDied(backButton: self.backButton!)
-                        }.background(Color.black.opacity(0.7))
-                            .edgesIgnoringSafeArea(.all)
-                    }
+                }
+
+                if self.game.isEnd {
+                    GeometryReader { _ in
+                        YouBeatTheGame(backButton: self.backButton!)
+                    }.background(Color.black.opacity(0.7))
+                        .edgesIgnoringSafeArea(.all)
+                } else if self.game.isDead {
+                    GeometryReader { _ in
+                        YouDied(backButton: self.backButton!)
+                    }.background(Color.black.opacity(0.7))
+                        .edgesIgnoringSafeArea(.all)
                 }
             }
         }
-        
     }
     
     //================= VIEWS ================
@@ -126,16 +110,16 @@ struct GameView: View {
      */
     struct _timer: View {
         @ObservedObject var game: Game = Game.sharedInstance
-        @State var timeRemaining = 60
+        
         let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
         var body: some View {
-            Text("\(timeRemaining)")
+            Text("\(self.game.timeRemaining)")
                 .font(.system(size: 40))
                 .onReceive(timer) { _ in
                     // game must be running
-                    if self.timeRemaining > 0 && !self.game.isEnd {
-                        self.timeRemaining -= 1
+                    if self.game.timeRemaining > 0 && !self.game.isEnd {
+                        self.game.timeRemaining -= 1
                     } else {
                         self.game.isDead = true
                     }

@@ -38,6 +38,7 @@ class Game: ObservableObject {
     @Published var isDead: Bool = false
     @Published var gameBoard: [[Cell]] = []
     @Published var score: Int = 0
+    @Published var timeRemaining = 60
     
     
     // mutating functions -- public
@@ -68,6 +69,8 @@ class Game: ObservableObject {
         self.score = 0
         self.hintCount = 5
         self.isEnd = false
+        self.isDead = false
+        self.timeRemaining = 60
         self.gameBoard.removeAll(keepingCapacity: false)
         self.gameBoard = _initializeBoard()
     }
