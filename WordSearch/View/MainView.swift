@@ -18,15 +18,15 @@ struct MainView: View {
     // Texts
     let titleCopy: String = "WORD SEARCH"
     let startCopy: String = "START"
-    let settingCopy: String = "SETTING"
+    let settingCopy: String = "CREDIT"
     
     @State var isSettingOpen: Bool = false
-    
+    let screenBounds = UIScreen.main.bounds
     var body: some View {
         VStack(spacing: 20) {
             // TITLE
-            Text(titleCopy)
-                .font(.system(size: 50))
+            Text(self.titleCopy)
+                .font(.system(size: screenBounds.width * 0.1)) // scale to screen size
                 .foregroundColor(.white)
                 .padding(.bottom, 40)
             
@@ -34,7 +34,7 @@ struct MainView: View {
             Button(action: {
                 self.startFunction()
             }) {
-                Text(startCopy)
+                Text(self.startCopy)
                     .font(.system(size: 40))
                     .foregroundColor(.white)
             }
@@ -43,10 +43,10 @@ struct MainView: View {
             Button(action: {
                 self.isSettingOpen = true
             }) {
-                Text(settingCopy)
+                Text(self.settingCopy)
                     .font(.system(size: 40))
                     .foregroundColor(.white)
-            }.sheet(isPresented: $isSettingOpen, content: { SettingView() })
+            }.sheet(isPresented: self.$isSettingOpen, content: { SettingView() })
         }
     }
     

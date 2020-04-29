@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3045286F245415D5006662A5 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3045286E245415D5006662A5 /* GameView.swift */; };
-		304528722454C6D4006662A5 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304528712454C6D4006662A5 /* SettingView.swift */; };
 		3045287524556834006662A5 /* GameboardError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3045287424556834006662A5 /* GameboardError.swift */; };
 		304528772455836C006662A5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304528762455836C006662A5 /* Location.swift */; };
 		306AFA112453F31500352779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AFA102453F31500352779 /* AppDelegate.swift */; };
@@ -22,6 +21,7 @@
 		306AFA442454006600352779 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AFA432454006600352779 /* Cell.swift */; };
 		306AFA462454095D00352779 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AFA452454095D00352779 /* MainView.swift */; };
 		309B4D0A2457C7BA00F605C2 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309B4D092457C7BA00F605C2 /* Game.swift */; };
+		30CB33A8245951F100550554 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB33A7245951F100550554 /* SettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +43,6 @@
 
 /* Begin PBXFileReference section */
 		3045286E245415D5006662A5 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		304528712454C6D4006662A5 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		3045287424556834006662A5 /* GameboardError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameboardError.swift; sourceTree = "<group>"; };
 		304528762455836C006662A5 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		306AFA0D2453F31500352779 /* WordSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +62,7 @@
 		306AFA432454006600352779 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		306AFA452454095D00352779 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		309B4D092457C7BA00F605C2 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		30CB33A7245951F100550554 /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +176,7 @@
 			children = (
 				306AFA452454095D00352779 /* MainView.swift */,
 				3045286E245415D5006662A5 /* GameView.swift */,
-				304528712454C6D4006662A5 /* SettingView.swift */,
+				30CB33A7245951F100550554 /* SettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -313,11 +313,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				306AFA462454095D00352779 /* MainView.swift in Sources */,
+				30CB33A8245951F100550554 /* SettingView.swift in Sources */,
 				309B4D0A2457C7BA00F605C2 /* Game.swift in Sources */,
 				306AFA112453F31500352779 /* AppDelegate.swift in Sources */,
 				306AFA442454006600352779 /* Cell.swift in Sources */,
 				3045287524556834006662A5 /* GameboardError.swift in Sources */,
-				304528722454C6D4006662A5 /* SettingView.swift in Sources */,
 				306AFA132453F31500352779 /* SceneDelegate.swift in Sources */,
 				3045286F245415D5006662A5 /* GameView.swift in Sources */,
 				304528772455836C006662A5 /* Location.swift in Sources */,

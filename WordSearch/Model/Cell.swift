@@ -16,8 +16,8 @@ struct Cell: Hashable, View {
     
     var value: String?
     let location: Location?
-    public var isMagnified: Bool = false
-    public var isSelected: Bool = false
+    var isMagnified: Bool = false
+    var isSelected: Bool = false
     var isAnswered: Bool = false
     
     // providing a unique id to prevent dups dictionary key issue
@@ -28,14 +28,14 @@ struct Cell: Hashable, View {
         // tried make them buttons with InstantClick(); didn't work
         ZStack {
             Rectangle()
-                .fill(self.isSelected || self.isAnswered ? Color.red : Color.white)
+                .fill(self.isSelected || self.isAnswered ? Color(#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)) : Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                 .frame(width: Cell.scale, height: Cell.scale, alignment: .center)
-                .border(self.isSelected || self.isAnswered ? Color.red : Color.black)
+                .border(self.isSelected || self.isAnswered ? Color(#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)) : Color.black)
             Text(self.value ?? "?")
                 .font(.system(size: 25))
                 .foregroundColor(.black)
         }.scaleEffect(isMagnified ? 1.2 : 1)
-            .animation(.easeInOut)
+            .animation(Animation.easeInOut(duration: 1))
     }
     
     // ============ getters ============
@@ -71,8 +71,12 @@ struct Cell: Hashable, View {
     // Equatable
     // ignoring selection toggle
     static func == (lhs: Cell, rhs: Cell) -> Bool {
-        return lhs.id == rhs.id && lhs.location == rhs.location && lhs.isSelected == rhs.isSelected && lhs.value == rhs.value &&
-            lhs.isAnswered == rhs.isAnswered && lhs.isMagnified == rhs.isMagnified
+        return lhs.id == rhs.id &&
+                lhs.location == rhs.location &&
+                lhs.isSelected == rhs.isSelected &&
+                lhs.value == rhs.value &&
+                lhs.isAnswered == rhs.isAnswered &&
+                lhs.isMagnified == rhs.isMagnified
     }
 
     // Hashable
@@ -81,6 +85,8 @@ struct Cell: Hashable, View {
         hasher.combine(value)
         hasher.combine(location)
         hasher.combine(isSelected)
+        hasher.combine(isMagnified)
+        hasher.combine(isAnswered)
     }
 }
 

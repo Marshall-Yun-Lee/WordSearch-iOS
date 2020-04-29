@@ -13,8 +13,8 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all) // good for eyes
-
+            Color.orange.opacity(0.8).edgesIgnoringSafeArea(.all)
+            
             // new try with swiftUI
             // This somehow adds up memory about 1-2mb whenever navigation happens.
             // NavigationLink probably could be better i guess

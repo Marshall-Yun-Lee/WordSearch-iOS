@@ -43,18 +43,20 @@ struct GameView: View {
         var backButton: reset
         
         var body: some View {
-            VStack {
+            VStack(spacing: 20) {
                 Text("Winner Winner Chicken Dinner!")
-                    .font(.system(size: 30))
+                    .font(.system(size: 20))
                     .foregroundColor(Color.white)
                 Button(action: {
                     self.backButton()
                 }) {
-                    Text("Yummy")
+                    Text("YUMMY")
                         .font(.system(size:30))
-                        .foregroundColor(Color.white)
-                }
-            }.background(Color.black)
+                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                }.padding(10)
+            }.padding(30)
+            .background(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
+            .shadow(radius: 5)
         }
     }
     
@@ -113,6 +115,8 @@ struct GameView: View {
         @ObservedObject var game: Game = Game.sharedInstance
         @State var selectedCells: [Location] = []
         @State var keywordBuilder: String = ""
+        @GestureState private var dragOffset = CGSize.zero
+
         
         var body: some View {
             GeometryReader { geo in
@@ -125,7 +129,10 @@ struct GameView: View {
                         }
                     }
                 }.gesture(
-                    DragGesture(minimumDistance: 10, coordinateSpace: .local) // using local coordinates
+                    DragGesture(minimumDistance: 0, coordinateSpace: .local) // using local coordinates
+                        .updating(self.$dragOffset, body: { (value, state, transaction) in
+                            state = value.translation
+                        })
                         .onChanged { value in
                             self.__handleSelect(touch: value)
                         }
@@ -136,7 +143,6 @@ struct GameView: View {
                 )
             }
         }
-
         
         
         //======================== board helpers ========================
@@ -164,8 +170,9 @@ struct GameView: View {
                 self.selectedCells.append(targetLocation)
                 self.keywordBuilder.append(self.game.gameBoard[yLoc][xLoc].value ?? "?")
                 
-                self.game.gameBoard[yLoc][xLoc]._magnify()
+                // mutating cells based on dragging location stops after 1 seconds of touch action.. can't find any good solution to it :(
                 self.game.gameBoard[yLoc][xLoc]._select()
+//                self.game.gameBoard[yLoc][xLoc]._magnify()
             }
         }
         
