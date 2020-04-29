@@ -22,6 +22,16 @@
 		306AFA462454095D00352779 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AFA452454095D00352779 /* MainView.swift */; };
 		309B4D0A2457C7BA00F605C2 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309B4D092457C7BA00F605C2 /* Game.swift */; };
 		30CB33A8245951F100550554 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB33A7245951F100550554 /* SettingView.swift */; };
+		30CB33B42459772900550554 /* landscapeMainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AA2459772900550554 /* landscapeMainMenu.png */; };
+		30CB33B52459772900550554 /* landscapeGame.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AB2459772900550554 /* landscapeGame.png */; };
+		30CB33B62459772900550554 /* landscapeGameOver.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AC2459772900550554 /* landscapeGameOver.png */; };
+		30CB33B72459772900550554 /* GameOver.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AD2459772900550554 /* GameOver.PNG */; };
+		30CB33B82459772900550554 /* Start.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AE2459772900550554 /* Start.PNG */; };
+		30CB33B92459772900550554 /* Hint.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AF2459772900550554 /* Hint.PNG */; };
+		30CB33BA2459772900550554 /* MainMenu.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33B02459772900550554 /* MainMenu.PNG */; };
+		30CB33BB2459772900550554 /* landscapeVictory.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33B12459772900550554 /* landscapeVictory.png */; };
+		30CB33BC2459772900550554 /* Game.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33B22459772900550554 /* Game.PNG */; };
+		30CB33BD2459772900550554 /* Victory.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33B32459772900550554 /* Victory.PNG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +73,16 @@
 		306AFA452454095D00352779 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		309B4D092457C7BA00F605C2 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		30CB33A7245951F100550554 /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		30CB33AA2459772900550554 /* landscapeMainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeMainMenu.png; sourceTree = "<group>"; };
+		30CB33AB2459772900550554 /* landscapeGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeGame.png; sourceTree = "<group>"; };
+		30CB33AC2459772900550554 /* landscapeGameOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeGameOver.png; sourceTree = "<group>"; };
+		30CB33AD2459772900550554 /* GameOver.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameOver.PNG; sourceTree = "<group>"; };
+		30CB33AE2459772900550554 /* Start.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Start.PNG; sourceTree = "<group>"; };
+		30CB33AF2459772900550554 /* Hint.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hint.PNG; sourceTree = "<group>"; };
+		30CB33B02459772900550554 /* MainMenu.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenu.PNG; sourceTree = "<group>"; };
+		30CB33B12459772900550554 /* landscapeVictory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeVictory.png; sourceTree = "<group>"; };
+		30CB33B22459772900550554 /* Game.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Game.PNG; sourceTree = "<group>"; };
+		30CB33B32459772900550554 /* Victory.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Victory.PNG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +141,7 @@
 		306AFA0F2453F31500352779 /* WordSearch */ = {
 			isa = PBXGroup;
 			children = (
+				30CB33A9245974B300550554 /* Demo */,
 				3045287324556800006662A5 /* Error */,
 				306AFA4724540E1B00352779 /* View */,
 				306AFA422454005B00352779 /* Model */,
@@ -179,6 +200,23 @@
 				30CB33A7245951F100550554 /* SettingView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		30CB33A9245974B300550554 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				30CB33B22459772900550554 /* Game.PNG */,
+				30CB33AD2459772900550554 /* GameOver.PNG */,
+				30CB33AF2459772900550554 /* Hint.PNG */,
+				30CB33AB2459772900550554 /* landscapeGame.png */,
+				30CB33AC2459772900550554 /* landscapeGameOver.png */,
+				30CB33AA2459772900550554 /* landscapeMainMenu.png */,
+				30CB33B12459772900550554 /* landscapeVictory.png */,
+				30CB33B02459772900550554 /* MainMenu.PNG */,
+				30CB33AE2459772900550554 /* Start.PNG */,
+				30CB33B32459772900550554 /* Victory.PNG */,
+			);
+			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,8 +324,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				306AFA1D2453F31700352779 /* LaunchScreen.storyboard in Resources */,
+				30CB33B72459772900550554 /* GameOver.PNG in Resources */,
+				30CB33B82459772900550554 /* Start.PNG in Resources */,
+				30CB33B42459772900550554 /* landscapeMainMenu.png in Resources */,
 				306AFA1A2453F31700352779 /* Preview Assets.xcassets in Resources */,
+				30CB33BC2459772900550554 /* Game.PNG in Resources */,
 				306AFA172453F31600352779 /* Assets.xcassets in Resources */,
+				30CB33B52459772900550554 /* landscapeGame.png in Resources */,
+				30CB33BB2459772900550554 /* landscapeVictory.png in Resources */,
+				30CB33B62459772900550554 /* landscapeGameOver.png in Resources */,
+				30CB33B92459772900550554 /* Hint.PNG in Resources */,
+				30CB33BD2459772900550554 /* Victory.PNG in Resources */,
+				30CB33BA2459772900550554 /* MainMenu.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
