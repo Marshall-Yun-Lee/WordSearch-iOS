@@ -28,11 +28,12 @@ class Game: ObservableObject {
     ]
     
     // use getters
-    var reservedLocations: [Location] = []
-    var keywordsFound: [String] = []
-    var hintCount: Int = 5
+    private var reservedLocations: [Location] = []
+    private var keywordsFound: [String] = []
+    private var hintCount: Int = 5
     
     // props
+    @Published var isRunning = false
     @Published var isEnd = false
     @Published var gameBoard: [[Cell]] = []
     @Published var score: Int = 0
@@ -74,8 +75,8 @@ class Game: ObservableObject {
         while self.hintCount > 0 {
             let randomPos: Location = self.reservedLocations.randomElement()!
             
-            if !self.gameBoard[randomPos.yLoc][randomPos.xLoc].isSelected {
-                self.gameBoard[randomPos.yLoc][randomPos.xLoc].isSelected = true
+            if !self.gameBoard[randomPos.yLoc][randomPos.xLoc].isAnswered {
+                self.gameBoard[randomPos.yLoc][randomPos.xLoc].isAnswered = true
                 break;
             }
             // continue
@@ -83,7 +84,9 @@ class Game: ObservableObject {
         self.hintCount -= self.hintCount > 0 ? 1 : 0
     }
     
+    
     //======================= getters =======================
+    // not adding _ to getters as it is essential+general+noone knows what this is
     public func getReservedLocations() -> [Location] {
         return self.reservedLocations
     }
@@ -96,7 +99,14 @@ class Game: ObservableObject {
         return self.hintCount
     }
     //=======================================================
-
+    
+    
+    //====================== setters ========================
+    public func _addKeywordsFound(keywords: String) -> Void {
+        self.keywordsFound.append(keywords)
+    }
+    //=======================================================
+    
 
     //================= initializer helpers =================
     /*
@@ -143,7 +153,7 @@ class Game: ObservableObject {
                             // replace current location with the new value from the keyword
                             to[cellLocation.yLoc][cellLocation.xLoc] = Cell(value: String(char),
                                                                             location: Location(yLoc: cellLocation.yLoc, xLoc: cellLocation.xLoc),
-                                                                            isSelected: false) // true if you want to show all answers upon builds
+                                                                            isSelected: false, isAnswered: false)
                             
                             // add this cellLocation to the reserved location list
                             self.reservedLocations.append(cellLocation)
@@ -217,16 +227,12 @@ class Game: ObservableObject {
         return true
     }
 
+    // decided not to user crossing directions as it is not intuitive to drag on square cells
     enum Direction: CaseIterable {
         case N
         case E
         case S
         case W
-        
-    //    case NE
-    //    case SE
-    //    case NW
-    //    case SW
     }
 
     private func __getNextDirection(position: Location, direction: Direction) -> Location {
@@ -235,11 +241,6 @@ class Game: ObservableObject {
         case .E:    return Location(yLoc: position.yLoc,     xLoc: position.xLoc + 1)
         case .S:    return Location(yLoc: position.yLoc + 1, xLoc: position.xLoc)
         case .W:    return Location(yLoc: position.yLoc,     xLoc: position.xLoc - 1)
-        
-    //    case .NE:   return Location(yLoc: position.yLoc - 1, xLoc: position.xLoc + 1)
-    //    case .SE:   return Location(yLoc: position.yLoc + 1, xLoc: position.xLoc + 1)
-    //    case .SW:   return Location(yLoc: position.yLoc + 1, xLoc: position.xLoc - 1)
-    //    case .NW:   return Location(yLoc: position.yLoc - 1, xLoc: position.xLoc - 1)
         }
     }
     //=======================================================

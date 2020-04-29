@@ -111,10 +111,8 @@ struct GameView: View {
      */
     struct _board: View {
         @ObservedObject var game: Game = Game.sharedInstance
-        
         @State var selectedCells: [Location] = []
         @State var keywordBuilder: String = ""
-        @State var lastLoc: Location?
         
         var body: some View {
             GeometryReader { geo in
@@ -127,16 +125,18 @@ struct GameView: View {
                         }
                     }
                 }.gesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .local) // using local coordinates -- no need to get viewframe's origin location
+                    DragGesture(minimumDistance: 10, coordinateSpace: .local) // using local coordinates
                         .onChanged { value in
                             self.__handleSelect(touch: value)
                         }
                         .onEnded { _ in
+                            print("end")
                             self.__validateSelection()
                         }
                 )
             }
         }
+
         
         
         //======================== board helpers ========================
@@ -148,24 +148,24 @@ struct GameView: View {
         private func __handleSelect(touch: DragGesture.Value) {
             var xLoc: Int = Int((touch.location.x - 2) / Cell.scale)               // (touch locatioin - left padding) / cell size
             var yLoc: Int = Int((touch.location.y) / Cell.scale)                     // (touch location) / cell size
-            
+
             // upper bound check
             xLoc = (xLoc > Game.boardSize - 1) ? Game.boardSize - 1 : xLoc
             yLoc = (yLoc > Game.boardSize - 1) ? Game.boardSize - 1 : yLoc
-            // loser bound check
+            // lower bound check
             xLoc = (xLoc < 0 ? 0 : xLoc)
             yLoc = (yLoc < 0 ? 0 : yLoc)
             
-            
             let targetLocation: Location = Location(yLoc: yLoc, xLoc: xLoc)
-            if self.lastLoc == nil || (targetLocation != self.lastLoc) {
+            if targetLocation != self.selectedCells.last {
                 print("[" + String(yLoc) + "][" + String(xLoc) + "]")
-                if !self.game.gameBoard[yLoc][xLoc].isSelected {
-                    self.game.gameBoard[yLoc][xLoc]._toggleSelect()
-                }
+                
+                // record selection info
                 self.selectedCells.append(targetLocation)
                 self.keywordBuilder.append(self.game.gameBoard[yLoc][xLoc].value ?? "?")
-                self.lastLoc = targetLocation
+                
+                self.game.gameBoard[yLoc][xLoc]._magnify()
+                self.game.gameBoard[yLoc][xLoc]._select()
             }
         }
         
@@ -175,23 +175,28 @@ struct GameView: View {
          It resets self.keywordBuilder and remove the cells from self.selectedCells.
          */
         private func __validateSelection() {
-            // not answer
-            if !Game.keywordList.contains(self.keywordBuilder) {
+            // incorrect answer
+            if !Game.keywordList.contains(self.keywordBuilder) || self.game.getKeywordsFound().contains(self.keywordBuilder) {
                 for loc in self.selectedCells {
-                    if self.game.gameBoard[loc.yLoc][loc.xLoc].isSelected {
-                        self.game.gameBoard[loc.yLoc][loc.xLoc]._toggleSelect()
-                    }
+                    self.game.gameBoard[loc.yLoc][loc.xLoc]._deselect()
                 }
-            } else {
-                self.game.score += 1
-                if Game.keywordList.count - game.score == 0 {
+            } else if Game.keywordList.contains(self.keywordBuilder) && !self.game.getKeywordsFound().contains(self.keywordBuilder) {
+                self.game.score += 1 // show the result to user FIRST
+                self.game._addKeywordsFound(keywords: self.keywordBuilder)
+                for loc in self.selectedCells {
+                    self.game.gameBoard[loc.yLoc][loc.xLoc]._answered()
+                }
+                if Game.keywordList.count - self.game.score == 0 {
                     self.game.isEnd = true
                 }
             }
-            // answer
-            self.lastLoc = nil
-            self.keywordBuilder = ""
+            
+            // reset selection info
+            for loc in self.selectedCells {
+                self.game.gameBoard[loc.yLoc][loc.xLoc]._demagnify()
+            }
             self.selectedCells.removeAll()
+            self.keywordBuilder = ""
         }
         
         //===============================================================
@@ -248,4 +253,3 @@ struct GameView: View {
     }
     //========================================
 }
-
