@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  CreditView.swift
 //  WordSearch
 //
 //  Created by Marshall Lee on 2020-04-25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SettingView: View {
+struct CreditView: View {
     var body: some View {
         
         ZStack {

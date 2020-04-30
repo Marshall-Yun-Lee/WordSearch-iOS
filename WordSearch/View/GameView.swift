@@ -36,7 +36,6 @@ struct GameView: View {
                             Spacer()
                             _uiCluster()
                         }
-                        
                         _board()
                     }
                 }
@@ -99,7 +98,7 @@ struct GameView: View {
                     .font(.largeTitle)
                     .foregroundColor(.white)
                 }.padding(.horizontal)
-                    .sheet(isPresented: $isSettingOpen, content: { SettingView() })
+                    .sheet(isPresented: $isSettingOpen, content: { WordListView() })
             }.padding(.top, 20)
         }
     }

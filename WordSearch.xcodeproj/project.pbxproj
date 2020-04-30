@@ -21,7 +21,7 @@
 		306AFA442454006600352779 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AFA432454006600352779 /* Cell.swift */; };
 		306AFA462454095D00352779 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AFA452454095D00352779 /* MainView.swift */; };
 		309B4D0A2457C7BA00F605C2 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309B4D092457C7BA00F605C2 /* Game.swift */; };
-		30CB33A8245951F100550554 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB33A7245951F100550554 /* SettingView.swift */; };
+		30CB33A8245951F100550554 /* CreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB33A7245951F100550554 /* CreditView.swift */; };
 		30CB33B42459772900550554 /* landscapeMainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AA2459772900550554 /* landscapeMainMenu.png */; };
 		30CB33B52459772900550554 /* landscapeGame.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AB2459772900550554 /* landscapeGame.png */; };
 		30CB33B62459772900550554 /* landscapeGameOver.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33AC2459772900550554 /* landscapeGameOver.png */; };
@@ -32,6 +32,8 @@
 		30CB33BB2459772900550554 /* landscapeVictory.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33B12459772900550554 /* landscapeVictory.png */; };
 		30CB33BC2459772900550554 /* Game.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33B22459772900550554 /* Game.PNG */; };
 		30CB33BD2459772900550554 /* Victory.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33B32459772900550554 /* Victory.PNG */; };
+		30CB33BF245A74FC00550554 /* WordListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB33BE245A74FC00550554 /* WordListView.swift */; };
+		30CB33C1245A7E1A00550554 /* WordList.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CB33C0245A7E1A00550554 /* WordList.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +74,7 @@
 		306AFA432454006600352779 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		306AFA452454095D00352779 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		309B4D092457C7BA00F605C2 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		30CB33A7245951F100550554 /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		30CB33A7245951F100550554 /* CreditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditView.swift; sourceTree = "<group>"; };
 		30CB33AA2459772900550554 /* landscapeMainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeMainMenu.png; sourceTree = "<group>"; };
 		30CB33AB2459772900550554 /* landscapeGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeGame.png; sourceTree = "<group>"; };
 		30CB33AC2459772900550554 /* landscapeGameOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeGameOver.png; sourceTree = "<group>"; };
@@ -83,6 +85,8 @@
 		30CB33B12459772900550554 /* landscapeVictory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscapeVictory.png; sourceTree = "<group>"; };
 		30CB33B22459772900550554 /* Game.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Game.PNG; sourceTree = "<group>"; };
 		30CB33B32459772900550554 /* Victory.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Victory.PNG; sourceTree = "<group>"; };
+		30CB33BE245A74FC00550554 /* WordListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordListView.swift; sourceTree = "<group>"; };
+		30CB33C0245A7E1A00550554 /* WordList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WordList.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +201,8 @@
 			children = (
 				306AFA452454095D00352779 /* MainView.swift */,
 				3045286E245415D5006662A5 /* GameView.swift */,
-				30CB33A7245951F100550554 /* SettingView.swift */,
+				30CB33A7245951F100550554 /* CreditView.swift */,
+				30CB33BE245A74FC00550554 /* WordListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				30CB33B02459772900550554 /* MainMenu.PNG */,
 				30CB33AE2459772900550554 /* Start.PNG */,
 				30CB33B32459772900550554 /* Victory.PNG */,
+				30CB33C0245A7E1A00550554 /* WordList.png */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -328,6 +334,7 @@
 				30CB33B82459772900550554 /* Start.PNG in Resources */,
 				30CB33B42459772900550554 /* landscapeMainMenu.png in Resources */,
 				306AFA1A2453F31700352779 /* Preview Assets.xcassets in Resources */,
+				30CB33C1245A7E1A00550554 /* WordList.png in Resources */,
 				30CB33BC2459772900550554 /* Game.PNG in Resources */,
 				306AFA172453F31600352779 /* Assets.xcassets in Resources */,
 				30CB33B52459772900550554 /* landscapeGame.png in Resources */,
@@ -361,7 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				306AFA462454095D00352779 /* MainView.swift in Sources */,
-				30CB33A8245951F100550554 /* SettingView.swift in Sources */,
+				30CB33A8245951F100550554 /* CreditView.swift in Sources */,
 				309B4D0A2457C7BA00F605C2 /* Game.swift in Sources */,
 				306AFA112453F31500352779 /* AppDelegate.swift in Sources */,
 				306AFA442454006600352779 /* Cell.swift in Sources */,
@@ -369,6 +376,7 @@
 				306AFA132453F31500352779 /* SceneDelegate.swift in Sources */,
 				3045286F245415D5006662A5 /* GameView.swift in Sources */,
 				304528772455836C006662A5 /* Location.swift in Sources */,
+				30CB33BF245A74FC00550554 /* WordListView.swift in Sources */,
 				306AFA152453F31500352779 /* Main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

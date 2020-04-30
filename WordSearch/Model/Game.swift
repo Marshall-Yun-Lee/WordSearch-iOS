@@ -102,6 +102,15 @@ class Game: ObservableObject {
     public func getHintCount() -> Int {
         return self.hintCount
     }
+    
+    public func getNextDirection(position: Location, direction: Direction) -> Location {
+        switch direction {
+        case .N:    return Location(yLoc: position.yLoc - 1, xLoc: position.xLoc)
+        case .E:    return Location(yLoc: position.yLoc,     xLoc: position.xLoc + 1)
+        case .S:    return Location(yLoc: position.yLoc + 1, xLoc: position.xLoc)
+        case .W:    return Location(yLoc: position.yLoc,     xLoc: position.xLoc - 1)
+        }
+    }
     //=======================================================
     
     
@@ -163,7 +172,7 @@ class Game: ObservableObject {
                             self.reservedLocations.append(cellLocation)
                             
                             // update cellLocation for the next iteration based on the direction
-                            cellLocation = __getNextDirection(position: cellLocation, direction: dir)
+                            cellLocation = getNextDirection(position: cellLocation, direction: dir)
                         }
                         isInjected = true
                         break // stop Direction enum iteration
@@ -217,7 +226,7 @@ class Game: ObservableObject {
                 (self.reservedLocations.contains(currP) && (board[currP.yLoc][currP.yLoc].value!.uppercased() != String(char).uppercased())) {
                 return false
             }
-            currP = __getNextDirection(position: currP, direction: direction)
+            currP = getNextDirection(position: currP, direction: direction)
         }
         return true
     }
@@ -237,15 +246,6 @@ class Game: ObservableObject {
         case E
         case S
         case W
-    }
-
-    private func __getNextDirection(position: Location, direction: Direction) -> Location {
-        switch direction {
-        case .N:    return Location(yLoc: position.yLoc - 1, xLoc: position.xLoc)
-        case .E:    return Location(yLoc: position.yLoc,     xLoc: position.xLoc + 1)
-        case .S:    return Location(yLoc: position.yLoc + 1, xLoc: position.xLoc)
-        case .W:    return Location(yLoc: position.yLoc,     xLoc: position.xLoc - 1)
-        }
     }
     //=======================================================
 

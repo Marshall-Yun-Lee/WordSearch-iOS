@@ -48,7 +48,7 @@ struct MainView: View {
                 Text(self.settingCopy)
                     .font(.system(size: 40))
                     .foregroundColor(.white)
-            }.sheet(isPresented: self.$isSettingOpen, content: { SettingView() })
+            }.sheet(isPresented: self.$isSettingOpen, content: { CreditView() })
         }
     }
     
