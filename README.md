@@ -19,6 +19,10 @@ Player is given 60 seconds to find 6 words: [Swift, Kotlin, ObjectiveC, Variable
 
 <img src="https://github.com/Marshall-Yun-Lee/WordSearch-iOS/blob/master/WordSearch/Demo/Game.PNG" width="500">
 
+# Word List
+
+<img src="https://github.com/Marshall-Yun-Lee/WordSearch-iOS/blob/master/WordSearch/Demo/WordList.png" width="500">
+
 # Hint
 
 <img src="https://github.com/Marshall-Yun-Lee/WordSearch-iOS/blob/master/WordSearch/Demo/Hint.PNG" width="500">
